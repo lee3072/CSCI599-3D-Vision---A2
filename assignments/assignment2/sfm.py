@@ -437,13 +437,23 @@ class SFM(object):
         # print(img_pts.shape, reproj_pts.shape)
         reproj_pts = reproj_pts.reshape(-1, 2)
 
-        # Calculate the reprojection error
-        err = np.mean(np.sqrt(np.sum((img_pts - reproj_pts) ** 2, axis=1)))
+        # Load the image for maximum error calculation
+        image = cv2.imread(os.path.join(self.images_dir, name+'.jpg'))[:,:,::-1]
+        max_err = np.sqrt(image.shape[0] ** 2 + image.shape[1] ** 2)
+        # calculate the error for each point
+        err = np.sqrt(np.sum((img_pts - reproj_pts) ** 2, axis=1))
+        # replace nan values with maximum error
+        err = np.where(np.isnan(err), max_err, err)
+        # replace inf values with maximum error
+        err = np.where(np.isinf(err), max_err, err)
+        # replace values greater than maximum error with maximum error
+        err = np.where(err > max_err, max_err, err)
+        # calculate the mean error
+        err = np.mean(err)
 
         # TODO: PLOT here
         if self.opts.plot_error: 
             fig,ax = plt.subplots()
-            image = cv2.imread(os.path.join(self.images_dir, name+'.jpg'))[:,:,::-1]
             ax = draw_correspondences(image, img_pts, reproj_pts, ax)
             ax.set_title('reprojection error = {}'.format(err))
             fig.savefig(os.path.join(self.out_err_dir, '{}.png'.format(name)))
