@@ -323,7 +323,12 @@ class SFM(object):
 
                 if len(matches) > 0: 
                     # TODO: Process the new view
-                    pass
+                    # Get aligned matches for filtered matches (matches that are not in the 3D point cloud of the previous view)
+                    img1pts, img2pts, img1idx, img2idx = self.get_aligned_matches(kp1, desc1, kp2, desc2, matches)
+                    # Update the matches data with filtered matches, (img1pts and img2pts will be used in actual triangulation)
+                    self.matches_data[(prev_name, name)] = [matches, img1pts, img2pts, img1idx, img2idx]
+                    # matches_data is updated with filtered matches, so triangulate_two_views will work with filtered data
+                    self.triangulate_two_views(prev_name, name)
                 else: 
                     print('skipping {} and {}'.format(prev_name, name))
         
