@@ -431,6 +431,9 @@ class SFM(object):
         # Get the 3D points and corresponding 2D points (-1 means the keypoint is not associated with any 3D point in the point cloud)
         pts3d = self.point_cloud[ref[ref >= 0].astype(int)]             # Extract 3D points that has reference from the target image 
         img_pts = np.array([k.pt for r, k in zip(ref, kp) if r >= 0])   # Extract keypoint coordinates that has reference from the target image
+
+        # Project the 3D points onto the image plane
+        reproj_pts, _ = cv2.projectPoints(pts3d, R, t, self.K, None)
         err = 0
 
         # TODO: PLOT here
