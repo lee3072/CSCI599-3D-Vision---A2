@@ -437,7 +437,8 @@ class SFM(object):
         # print(img_pts.shape, reproj_pts.shape)
         reproj_pts = reproj_pts.reshape(-1, 2)
 
-        err = 0
+        # Calculate the reprojection error
+        err = np.mean(np.sqrt(np.sum((img_pts - reproj_pts) ** 2, axis=1)))
 
         # TODO: PLOT here
         if self.opts.plot_error: 
