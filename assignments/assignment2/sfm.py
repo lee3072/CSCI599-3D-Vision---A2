@@ -444,7 +444,7 @@ class SFM(object):
         if self.opts.plot_error: 
             fig,ax = plt.subplots()
             image = cv2.imread(os.path.join(self.images_dir, name+'.jpg'))[:,:,::-1]
-            # ax = draw_correspondences(image, img_pts, reproj_pts, ax)
+            ax = draw_correspondences(image, img_pts, reproj_pts, ax)
             ax.set_title('reprojection error = {}'.format(err))
             fig.savefig(os.path.join(self.out_err_dir, '{}.png'.format(name)))
             plt.close(fig)
