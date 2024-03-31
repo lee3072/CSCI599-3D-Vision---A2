@@ -434,6 +434,9 @@ class SFM(object):
 
         # Project the 3D points onto the image plane
         reproj_pts, _ = cv2.projectPoints(pts3d, R, t, self.K, None)
+        # print(img_pts.shape, reproj_pts.shape)
+        reproj_pts = reproj_pts.reshape(-1, 2)
+
         err = 0
 
         # TODO: PLOT here
