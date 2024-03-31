@@ -427,6 +427,7 @@ class SFM(object):
         # TODO: Reprojection error calculation
         R, t, ref = self.image_data[name]
         kp, desc = self.load_features(name)
+        pts3d = self.point_cloud[ref[ref >= 0].astype(int)]             # Extract 3D points that has reference from the target image 
         err = 0
 
         # TODO: PLOT here
