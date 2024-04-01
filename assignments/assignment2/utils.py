@@ -104,5 +104,20 @@ def draw_correspondences(img, ptsTrue, ptsReproj, ax, drawOnly=50):
     ax.imshow(img)
     
     # TODO: draw correspondence between ptsTrue and ptsReproj
+    # Randomly select a subset of points to draw
+    if len(ptsTrue) > drawOnly:
+        idx = np.random.choice(len(ptsTrue), drawOnly, replace=False)
+        ptsTrue = ptsTrue[idx]
+        ptsReproj = ptsReproj[idx]
 
+    # Draw lines connecting ground truth and reprojected points
+    for ptTrue, ptReproj in zip(ptsTrue, ptsReproj):
+        ax.plot([ptTrue[0], ptReproj[0]], [ptTrue[1], ptReproj[1]], 'r-', linewidth=0.5)
+
+    # Draw ground truth points as green dots
+    ax.scatter(ptsTrue[:, 0], ptsTrue[:, 1], c='g', marker='.', s=10)
+
+    # Draw reprojected points as red dots
+    ax.scatter(ptsReproj[:, 0], ptsReproj[:, 1], c='r', marker='.', s=10)
+    
     return ax
