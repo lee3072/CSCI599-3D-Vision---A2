@@ -5,7 +5,7 @@ import pickle
 import os 
 from time import time
 import matplotlib.pyplot as plt
-
+import scipy.optimize
 from utils import * 
 import pdb 
 
@@ -295,6 +295,41 @@ class SFM(object):
         _, img1pts, img2pts, img1idx, img2idx = self.matches_data[(name1,name2)]
         
         new_point_cloud = triangulation(img1pts, img2pts, R1, t1, R2, t2)
+
+        # All triangulation and concatenation happens here since triangulate_new_view will call this function after filtering matches
+        # Perform bundle adjustment between triangulation and 3D point merging into the point cloud
+        # Bundle adjustment should adjust the 3D points and camera poses to minimize the reprojection error
+        def bundle_adjustment(points3d, img1pts, img2pts, K, R1, t1, R2, t2):
+            # Define the objective function for bundle adjustment
+            def get_loss(points3d):
+                # recover the original shape of points3d from the flattened shape
+                points3d = points3d.reshape(-1, 3)
+
+                # Project the 3D points onto the image planes
+                reproj_pts1, _ = cv2.projectPoints(points3d, R1, t1, K, None)
+                reproj_pts2, _ = cv2.projectPoints(points3d, R2, t2, K, None)
+
+                # Reshape the reprojected points to the same shape as the ground truth points
+                reproj_pts1 = reproj_pts1.reshape(-1, 2)
+                reproj_pts2 = reproj_pts2.reshape(-1, 2)
+
+                # Calculate the reprojection error
+                error1 = img1pts - reproj_pts1
+                error2 = img2pts - reproj_pts2
+
+                # Merge the errors into a single 1D array
+                return np.concatenate([error1.flatten(), error2.flatten()])
+
+            # Perform bundle adjustment using least squares optimization
+            # (the shape we use for error calculation is same as the shape of points3d, 
+            # but we flatten it to make it 1D for match optimize function requirements)
+            points3d = scipy.optimize.least_squares(get_loss, points3d.flatten()).x.reshape(-1, 3)    
+
+            return points3d
+
+        # Perform bundle adjustment
+        new_point_cloud = bundle_adjustment(new_point_cloud, img1pts, img2pts, self.K, R1, t1, R2, t2)
+
         self.point_cloud = np.concatenate((self.point_cloud, new_point_cloud), axis=0)
 
         ref1, ref2 = update_3D_reference(ref1, ref2, img1idx, img2idx,new_point_cloud.shape[0],
