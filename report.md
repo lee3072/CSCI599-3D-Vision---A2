@@ -96,7 +96,6 @@ Finally, the skeleton code display the average reprojection error across all ima
 
 ### Due to long time for bundle adjustment calculation below did not complete execute bundle adjustment
 
-* Camera 0006: Reprojection Error = 107.77827916112084
 * Camera 0007: Pose Estimation [time=0.286s]
 * Camera 0007: Triangulation [time=0.182s]
 * Camera 0007: Reprojection Error = 96.27109388752876
