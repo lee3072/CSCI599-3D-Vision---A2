@@ -112,10 +112,10 @@ def draw_correspondences(img, ptsTrue, ptsReproj, ax, drawOnly=50):
 
     # Draw lines connecting ground truth and reprojected points
     for ptTrue, ptReproj in zip(ptsTrue, ptsReproj):
-        ax.plot([ptTrue[0], ptReproj[0]], [ptTrue[1], ptReproj[1]], 'r-', linewidth=0.5)
+        ax.plot([ptTrue[0], ptReproj[0]], [ptTrue[1], ptReproj[1]], 'b-', linewidth=0.5)
 
     # Draw ground truth points as green dots
-    ax.scatter(ptsTrue[:, 0], ptsTrue[:, 1], c='g', marker='.', s=10)
+    ax.scatter(ptsTrue[:, 0], ptsTrue[:, 1], c='g', marker='.', s=12)
 
     # Draw reprojected points as red dots
     ax.scatter(ptsReproj[:, 0], ptsReproj[:, 1], c='r', marker='.', s=10)
