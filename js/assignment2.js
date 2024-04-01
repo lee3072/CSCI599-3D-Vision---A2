@@ -23,7 +23,7 @@ function initScene() {
 	controls.addEventListener( 'change', function() { renderer.render( scene, camera ); });
 	
 	let loader = new PLYLoader();
-	loader.load( '../assets/assignment2/results/fountain-P11/point-clouds/cloud_11_view.ply', function ( geometry ) {
+	loader.load( '../assets/assignment2/results/fountain-P11/point-clouds/cloud_6_view.ply', function ( geometry ) {
 		let material = new THREE.PointsMaterial( { size: 0.01, vertexColors: true } );
 		let pointCloud = new THREE.Points( geometry, material );
 		scene.add( pointCloud );
