@@ -110,6 +110,10 @@ def draw_correspondences(img, ptsTrue, ptsReproj, ax, drawOnly=50):
         ptsTrue = ptsTrue[idx]
         ptsReproj = ptsReproj[idx]
 
+    # Set the axis size to be 120% of the image dimensions
+    ax.set_xlim(-0.1 * img.shape[1], 1.1 * img.shape[1])
+    ax.set_ylim(1.1 * img.shape[0], -0.1 * img.shape[0])
+
     # Draw lines connecting ground truth and reprojected points
     for ptTrue, ptReproj in zip(ptsTrue, ptsReproj):
         ax.plot([ptTrue[0], ptReproj[0]], [ptTrue[1], ptReproj[1]], 'b-', linewidth=0.5)
