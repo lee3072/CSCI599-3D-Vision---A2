@@ -1,5 +1,6 @@
 import * as THREE from 'three';
 import Stats from 'three/addons/libs/stats.module.js';
+import { PLYLoader } from 'three/addons/loaders/PLYLoader.js';
 import { GUI } from 'three/addons/libs/lil-gui.module.min.js';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 
@@ -21,11 +22,12 @@ function initScene() {
 	controls.maxDistance = 10;
 	controls.addEventListener( 'change', function() { renderer.render( scene, camera ); });
 	
-	let geometry = new THREE.BoxGeometry( 1, 1, 1 );
-	let material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
-	cube = new THREE.Mesh( geometry, material );
-	scene.add( cube );
-	
+	let loader = new PLYLoader();
+	loader.load( '../assets/assignment2/results/fountain-P11/point-clouds/cloud_11_view.ply', function ( geometry ) {
+		let material = new THREE.PointsMaterial( { size: 0.01, vertexColors: true } );
+		let pointCloud = new THREE.Points( geometry, material );
+		scene.add( pointCloud );
+	});
 	camera.position.z = 5;
 }
 
