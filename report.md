@@ -91,6 +91,7 @@ Finally, the skeleton code display the average reprojection error across all ima
 * Camera 0005: Pose Estimation [time=0.249s]
 * Camera 0005: Triangulation [time=1.34e+03s]
 * Camera 0005: Reprojection Error = 76.14648290201258
+* Camera 0006: Pose Estimation [time=0.296s]
 * Camera 0006: Triangulation [time=1.15e+03s]
 * Camera 0006: Reprojection Error = 85.29346020225051
 
