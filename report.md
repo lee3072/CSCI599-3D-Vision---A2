@@ -62,10 +62,10 @@ Finally, the skeleton code display the average reprojection error across all ima
 ![Image 3 Error](assets/assignment2/results/fountain-P11/errors/0002.png)
 ![Image 4 Error](assets/assignment2/results/fountain-P11/errors/0003.png)
 ![Image 5 Error](assets/assignment2/results/fountain-P11/errors/0004.png)
+![Image 6 Error](assets/assignment2/results/fountain-P11/errors/0005.png)
 
 ### Due to long time for bundle adjustment calculation below did not complete execute bundle adjustment
 
-![Image 6 Error](assets/assignment2/results/fountain-P11/errors/0005.png)
 ![Image 7 Error](assets/assignment2/results/fountain-P11/errors/0006.png)
 ![Image 8 Error](assets/assignment2/results/fountain-P11/errors/0007.png)
 ![Image 9 Error](assets/assignment2/results/fountain-P11/errors/0008.png)
@@ -91,11 +91,11 @@ Finally, the skeleton code display the average reprojection error across all ima
 * Camera 0005: Pose Estimation [time=0.249s]
 * Camera 0005: Triangulation [time=1.34e+03s]
 * Camera 0005: Reprojection Error = 76.14648290201258
+* Camera 0006: Triangulation [time=1.15e+03s]
+* Camera 0006: Reprojection Error = 85.29346020225051
 
 ### Due to long time for bundle adjustment calculation below did not complete execute bundle adjustment
 
-* Camera 0006: Pose Estimation [time=0.274s]
-* Camera 0006: Triangulation [time=0.158s]
 * Camera 0006: Reprojection Error = 107.77827916112084
 * Camera 0007: Pose Estimation [time=0.286s]
 * Camera 0007: Triangulation [time=0.182s]
